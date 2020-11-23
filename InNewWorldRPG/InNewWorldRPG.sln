@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InNewWorldRPG", "InNewWorldRPG.csproj", "{A749B46C-A533-43CE-A86B-46A5347EC8A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "..\DataAccess\DataAccess.csproj", "{32A19CA4-B017-483F-840F-6D23D8B07F6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "..\Domain\Domain.csproj", "{87119B96-F040-48D2-8756-7D86B7906BDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A749B46C-A533-43CE-A86B-46A5347EC8A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A749B46C-A533-43CE-A86B-46A5347EC8A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A749B46C-A533-43CE-A86B-46A5347EC8A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A749B46C-A533-43CE-A86B-46A5347EC8A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32A19CA4-B017-483F-840F-6D23D8B07F6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A19CA4-B017-483F-840F-6D23D8B07F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A19CA4-B017-483F-840F-6D23D8B07F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A19CA4-B017-483F-840F-6D23D8B07F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87119B96-F040-48D2-8756-7D86B7906BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87119B96-F040-48D2-8756-7D86B7906BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87119B96-F040-48D2-8756-7D86B7906BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87119B96-F040-48D2-8756-7D86B7906BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D14C83D-5570-434C-91A8-718FAFE7A670}
+	EndGlobalSection
+EndGlobal
