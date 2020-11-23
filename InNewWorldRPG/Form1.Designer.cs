@@ -85,7 +85,7 @@ namespace InNewWorldRPG
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(160, 68);
             this.button5.TabIndex = 5;
-            this.button5.Text = "Run";
+            this.button5.Text = "Run Away";
             this.button5.UseVisualStyleBackColor = true;
             // 
             // button6
@@ -103,7 +103,7 @@ namespace InNewWorldRPG
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(160, 68);
             this.button8.TabIndex = 8;
-            this.button8.Text = "Add Level";
+            this.button8.Text = "Level Add";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 

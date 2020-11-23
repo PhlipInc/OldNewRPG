@@ -31,7 +31,7 @@ namespace Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Name: {Name}");
-            sb.AppendLine($"ID: {Id}");
+            sb.AppendLine($"Id: {Id}");
             sb.AppendLine($"Weapon: {Weapon}");
             sb.AppendLine($"Armor: {Armor}");
             sb.AppendLine($"Items: {string.Join(" | ", Items.Keys)}");
