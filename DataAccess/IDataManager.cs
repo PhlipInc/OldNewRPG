@@ -7,8 +7,7 @@ namespace DataAccess
     public interface IDataManager
     {
         Fighter GetFighter(string id);
-        //List<Item> Item { get; }
-        //Item GetItem(string item);
+        List<Item> GetItems();
         //Dungeon GetRandomDungeon(Fighter fighter);
         void SetFighter(string id, Fighter fighter);
     }

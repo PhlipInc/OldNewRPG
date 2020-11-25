@@ -11,7 +11,7 @@ namespace Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public int ShopPrice { get; set; }
-        public List<Item> Items { get; set; }
+        //public List<Item> Items { get; set; }
 
 
         public override string ToString()
@@ -23,10 +23,10 @@ namespace Domain
             return sb.ToString();
         }
 
-        public void DefaultItemList()
+        /*public List<Item> DefaultItemList()
         {
 
-            Items = new List<Item>
+            Item = new List<Item>
             {
                 new Item()
                 {
@@ -53,6 +53,7 @@ namespace Domain
                     ShopPrice = 42341
                 }
             };
-        }
+
+        }*/
     }
 }

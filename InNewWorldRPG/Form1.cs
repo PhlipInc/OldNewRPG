@@ -98,7 +98,8 @@ namespace InNewWorldRPG
 
         private void button6_Click(object sender, EventArgs e)
         {
-            DataManager.GetItems();
+            richTextBox1.AppendText(nl + DataManager.GetItems()[1]);
+
         }
 
         private void button7_Click(object sender, EventArgs e)
