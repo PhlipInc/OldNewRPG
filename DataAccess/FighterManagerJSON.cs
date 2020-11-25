@@ -9,7 +9,7 @@ namespace DataAccess
 {
     public class FighterManagerJSON : IDataManager
     {
-        //private Random random;
+        private Random random = new Random();
         JsonSerializerOptions jso = new JsonSerializerOptions() { WriteIndented = true };
         public const string FighterPathStart = "rpg/OldNewRPG/";
         public const string FighterPathEnd = "-Fighter.json";
@@ -17,12 +17,23 @@ namespace DataAccess
         public const string DungeonPath = "rpg/OldNewRPG/Dungeons.json";
         public const string MonsterPath = "rpg/OldNewRPG/Monsters.json";
         List<Item> items { get; set; }
+        Dungeon dungeon = new Dungeon();
         List<Dungeon> dungeons { get; set; }
         List<Monster> monsters { get; set; }
         Fighter fighter;
         public FighterManagerJSON(Random random)
         {
             //this.random = random;
+        }
+
+        public Dungeon GetRandomDungeon()
+        {
+            return GetDungeons()[random.Next(1, dungeons.Count)];
+        }
+
+        public Dungeon SetRandomDungeon(Dungeon dungeon)
+        {
+            return dungeon;
         }
 
         public List<Monster> GetMonsters()

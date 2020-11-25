@@ -11,6 +11,7 @@ namespace InNewWorldRPG
         private static Random random = new Random();
         private static FighterManagerJSON DataManager = new FighterManagerJSON(random);
         private static Fighter fighter;
+        private static Dungeon dungeon = new Dungeon();
         private string user = Environment.MachineName;
         private string nl = Environment.NewLine;
         //string tempuser = "12342342";
@@ -112,7 +113,10 @@ namespace InNewWorldRPG
 
         private void button6_Click(object sender, EventArgs e)
         {
-
+            StringBuilder sb = new StringBuilder();
+            Dungeon RandomDungeon = DataManager.GetRandomDungeon();
+            sb.Append(RandomDungeon);
+            richTextBox1.AppendText(sb.ToString());
         }
 
         private void button7_Click(object sender, EventArgs e)
