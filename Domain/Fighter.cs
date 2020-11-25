@@ -35,6 +35,7 @@ namespace Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Name: {Name}");
+            sb.AppendLine($"Potatoes: {Potatoes}");
             sb.AppendLine($"Id: {Id}");
             sb.AppendLine($"Weapon: {Weapon}");
             sb.AppendLine($"Armor: {Armor}");
@@ -121,6 +122,7 @@ namespace Domain
             nFighter.Items.Add("Crzy", 5);
 
             nFighter.Name = nFighter.name;
+            nFighter.Potatoes = 2000;
             nFighter.WeaponStrength = +1;
             nFighter.Weapon = $"Potato Sword[{nFighter.WeaponStrength}]";
             nFighter.ArmorStrength = +0.5;

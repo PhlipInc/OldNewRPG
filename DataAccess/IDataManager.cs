@@ -8,6 +8,8 @@ namespace DataAccess
     {
         Fighter GetFighter(string id);
         List<Item> GetItems();
+        List<Dungeon> GetDungeons();
+        List<Monster> GetMonsters();
         //Dungeon GetRandomDungeon(Fighter fighter);
         void SetFighter(string id, Fighter fighter);
     }

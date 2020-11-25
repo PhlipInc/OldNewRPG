@@ -1,15 +1,8 @@
 ﻿using System;
 using Domain;
 using DataAccess;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace InNewWorldRPG
 {
@@ -65,7 +58,27 @@ namespace InNewWorldRPG
             richTextBox1.AppendText(sb.ToString());
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void StoreButton_Click(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"―――――――――――――――――――――――――――――――――――――――――――――{nl}");
+            sb.Append($"{nl}THE ONE THE ONLY HOLY STORE | {fighter.Name.ToUpper()}!!!!!!!{nl}");
+            sb.Append($"{nl}―――――――――――――――――――――――――――――――――――――――――――――{nl}");
+            for (int i = 0; i < DataManager.GetItems().Count; i++)
+            {
+                sb.Append($"{DataManager.GetItems()[i]}{nl}");
+            }
+            sb.Append($"THIS IS JUST A TEMP STORE BUTTON{nl}");
+            sb.Append($"FUTURE BUTTON WILL OPEN THE STORE UI{nl}");
+            sb.Append($"THERE IS TEMP DATA HERE{nl}");
+            sb.Append($"TEMP DATA GOES HERE{nl}");
+            sb.Append($"―――――――――――――――――――――――――――――――――――――――――――――{nl}");
+            //sb.ToString();
+            richTextBox1.AppendText(sb.ToString());
+            richTextBox1.ScrollToCaret();
+        }
+
+        private void StatsButton_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append($"――――――――――――――――――――――――――――――――――――――――――――――{nl}");
@@ -78,27 +91,27 @@ namespace InNewWorldRPG
 
         private void button3_Click(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append($"―――――――――――――――――――――――――――――――――――――――――――――{nl}");
-            sb.Append($"{nl}THE ONE THE HOLY STORE | {fighter.Name.ToUpper()}!!!!!!!{nl}");
-            sb.Append($"{nl}―――――――――――――――――――――――――――――――――――――――――――――{nl}");
-            sb.Append($"THIS IS JUST A TEMP STORE BUTTON{nl}");
-            sb.Append($"FUTURE BUTTON WILL OPEN THE STORE UI{nl}");
-            sb.Append($"THERE IS TEMP DATA HERE{nl}");
-            sb.Append($"TEMP DATA GOES HERE{nl}");
-            sb.Append($"―――――――――――――――――――――――――――――――――――――――――――――{nl}");
-            //sb.ToString();
-            richTextBox1.AppendText(sb.ToString());
+
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            foreach (var item in DataManager.GetDungeons())
+            {
+                richTextBox1.AppendText(nl + item + nl);
+            }
+        }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            foreach (var item in DataManager.GetMonsters())
+            {
+                richTextBox1.AppendText(nl + item + nl);
+            }
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            richTextBox1.AppendText(nl + DataManager.GetItems()[1]);
 
         }
 
@@ -115,5 +128,6 @@ namespace InNewWorldRPG
             fighter.HealthPoints = fighter.MaxHp(fighter.Level);
             DataManager.SetFighter(user, fighter);
         }
+
     }
 }
