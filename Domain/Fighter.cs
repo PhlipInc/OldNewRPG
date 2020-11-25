@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain
 {
@@ -15,12 +16,15 @@ namespace Domain
     [Serializable]
     public class Fighter
     {
-        private string Id = Environment.MachineName;
+        public string Id = Environment.MachineName;
         public string Name { get; set; }
+        public int Potatoes { get; set; }
         public string Weapon { get; set; }
+        public double WeaponStrength { get; set; }
         public string Armor { get; set; }
+        public double ArmorStrength { get; set; }
         public int Level { get; set; }
-        public int Experience { get; set; }
+        public double Experience { get; set; }
         public double HealthPoints { get; set; }
         public Dictionary<string, int> Items { get; set; }
         public bool IsFirstTimePlaying { get; set; }
@@ -34,8 +38,8 @@ namespace Domain
             sb.AppendLine($"Id: {Id}");
             sb.AppendLine($"Weapon: {Weapon}");
             sb.AppendLine($"Armor: {Armor}");
-            sb.AppendLine($"Items: {string.Join(" | ", Items.Keys)}");
-            sb.AppendLine($"XP: {Experience}");
+            sb.AppendLine($"Items: [ {string.Join(" ] | [ ", Items.Keys)} ]");
+            sb.AppendLine($"XP: {Convert.ToInt32(Experience)}");
             sb.AppendLine($"Level: {Level}");
             sb.AppendLine($"HP: {HealthPoints} / {MaxHp(Level)}");
             sb.AppendLine($"First Timer: {IsFirstTimePlaying}");
@@ -69,6 +73,12 @@ namespace Domain
         {
             Experience += exp;
         }
+
+        public Task<Fighter> Result()
+        {
+            throw new NotImplementedException();
+        }
+
         public void RemoveExp(int exp)
         {
             Experience -= exp;
@@ -93,6 +103,13 @@ namespace Domain
         {
             PlayerState = state;
         }
+        public void IncrementLevelFromExperience(int experience, Fighter fighter)
+        {
+            fighter.Experience = (fighter.Experience + experience);
+            double level = 1 / (Math.Log(1.5)) * Math.Log(fighter.Experience / 740);
+            fighter.Level = Convert.ToInt32(level);
+            fighter.HealthPoints = fighter.MaxHp(fighter.Level);
+        }
 
         public static Fighter NewFighterInstance()
         {
@@ -104,10 +121,13 @@ namespace Domain
             nFighter.Items.Add("Crzy", 5);
 
             nFighter.Name = nFighter.name;
-            nFighter.Weapon = "Potato Sword[+1]";
-            nFighter.Armor = "Potato Armor[+0.5]";
+            nFighter.WeaponStrength = +1;
+            nFighter.Weapon = $"Potato Sword[{nFighter.WeaponStrength}]";
+            nFighter.ArmorStrength = +0.5;
+            nFighter.Armor = $"Potato Armor[{nFighter.ArmorStrength}]";
+
             nFighter.Items = nFighter.Items;
-            nFighter.Experience = 0;
+            nFighter.Experience = 1110.5;
             nFighter.Level = 1;
             nFighter.HealthPoints = 10;
             nFighter.IsFirstTimePlaying = true;

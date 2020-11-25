@@ -45,13 +45,13 @@ namespace InNewWorldRPG
             this.richTextBox1.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.richTextBox1.Location = new System.Drawing.Point(12, 12);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(628, 531);
+            this.richTextBox1.Size = new System.Drawing.Size(628, 587);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(836, 383);
+            this.button2.Location = new System.Drawing.Point(836, 439);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(160, 160);
             this.button2.TabIndex = 2;
@@ -61,7 +61,7 @@ namespace InNewWorldRPG
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(663, 383);
+            this.button1.Location = new System.Drawing.Point(663, 439);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 160);
             this.button1.TabIndex = 3;
@@ -71,7 +71,7 @@ namespace InNewWorldRPG
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1010, 383);
+            this.button3.Location = new System.Drawing.Point(1010, 439);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(160, 160);
             this.button3.TabIndex = 4;
@@ -96,6 +96,7 @@ namespace InNewWorldRPG
             this.button6.TabIndex = 7;
             this.button6.Text = "Items";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button8
             // 
@@ -125,12 +126,13 @@ namespace InNewWorldRPG
             this.button7.TabIndex = 10;
             this.button7.Text = "N/A";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1193, 555);
+            this.ClientSize = new System.Drawing.Size(1194, 611);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button8);

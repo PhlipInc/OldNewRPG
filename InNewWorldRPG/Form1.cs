@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace InNewWorldRPG
 {
@@ -95,10 +96,22 @@ namespace InNewWorldRPG
 
         }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            DataManager.GetItems();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            fighter.IncrementLevelFromExperience(Convert.ToInt32(fighter.Experience * 1.1), fighter);
+            DataManager.SetFighter(user, fighter);
+        }
+
         private void button8_Click(object sender, EventArgs e)
         {
             fighter.AddLevel(1);
-            fighter.MaxHp(fighter.Level);
+            fighter.Experience = fighter.Experience * 1.5;
+            fighter.HealthPoints = fighter.MaxHp(fighter.Level);
             DataManager.SetFighter(user, fighter);
         }
     }
