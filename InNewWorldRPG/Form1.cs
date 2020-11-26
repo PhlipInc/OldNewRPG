@@ -124,8 +124,12 @@ namespace InNewWorldRPG
 
         private void button7_Click(object sender, EventArgs e)
         {
-            fighter.IncrementLevelFromExperience(Convert.ToInt32(fighter.Experience * 1.1), fighter);
-            FighterDataManager.SetFighter(user, fighter);
+            StringBuilder sb = new StringBuilder();
+            Monster RandomMonster = MonsterDataManager.GetRandomMonster();
+            sb.Append(RandomMonster);
+            richTextBox1.AppendText(sb.ToString());
+            //fighter.IncrementLevelFromExperience(Convert.ToInt32(fighter.Experience * 1.1), fighter);
+            //FighterDataManager.SetFighter(user, fighter);
         }
 
         private void button8_Click(object sender, EventArgs e)
