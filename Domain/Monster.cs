@@ -15,6 +15,7 @@ namespace Domain
         public double ArmorStrength { get; set; }
         public int Level { get; set; }
         public double HealthPoints { get; set; }
+        public bool IsBoss { get; set; } = false;
 
         public override string ToString()
         {
@@ -25,6 +26,7 @@ namespace Domain
             sb.AppendLine($"Armor: {Armor}[{ArmorStrength}]");
             sb.AppendLine($"Level: {Level}");
             sb.AppendLine($"HP: {HealthPoints}");
+            sb.AppendLine($"Boss: {IsBoss}");
             return sb.ToString();
         }
     }
