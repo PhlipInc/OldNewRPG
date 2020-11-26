@@ -3,4 +3,4 @@ A classic rpg games styled in a windows application, console application, and wp
 
 
 # REQUIREMENTS
-.NET 5
+.NET CORE 5.0
