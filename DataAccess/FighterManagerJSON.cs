@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace DataAccess
 {
@@ -18,24 +19,23 @@ namespace DataAccess
             //this.random = random;
         }
 
-        public Fighter GetFighter(string id, Fighter fighter)
+        public async Task<Fighter> GetFighter(string id, Fighter fighter)
         {
             if(!File.Exists(FighterPathStart + id + FighterPathEnd))
             {
                 fighter = Fighter.NewFighterInstance();
-                SetFighter(id, fighter);
+                await SetFighter(id, fighter);
             }
             else
             {
-                using (StreamReader sr =  new  StreamReader(FighterPathStart + id + FighterPathEnd))
+                using (FileStream fs =  File.OpenRead(FighterPathStart + id + FighterPathEnd))
                 {
-                    fighter = JsonSerializer.Deserialize<Fighter>(sr.ReadToEnd());
-                    sr.Dispose();
+                    fighter = await JsonSerializer.DeserializeAsync<Fighter>(fs);
                 }
             }
             return fighter;
         }
-        public async void SetFighter(string id, Fighter fighter)
+        public async Task SetFighter(string id, Fighter fighter)
         {
             try
             {

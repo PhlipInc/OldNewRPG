@@ -22,7 +22,7 @@ namespace DataAccess
         public const string MonsterPath = "rpg/OldNewRPG/Monsters.json";
         List<Monster> monsters { get; set; }
 
-        public List<Monster> GetMonsters()
+        public async Task<List<Monster>> GetMonsters()
         {
             if (!File.Exists(MonsterPath))
             {
@@ -75,19 +75,18 @@ namespace DataAccess
                     }
 
                 };
-                SetMonsters(monsters);
+                await SetMonsters(monsters);
             }
             else
             {
-                using (StreamReader sr = new StreamReader(MonsterPath))
+                using (FileStream fs = File.OpenRead(MonsterPath))
                 {
-                    monsters = JsonSerializer.Deserialize<List<Monster>>(sr.ReadToEnd());
-                    sr.Dispose();
+                    monsters = await JsonSerializer.DeserializeAsync<List<Monster>>(fs);
                 }
             }
             return monsters;
         }
-        public async void SetMonsters(List<Monster> monsters)
+        public async Task SetMonsters(List<Monster> monsters)
         {
             try
             {
@@ -102,16 +101,16 @@ namespace DataAccess
                 Debug.WriteLine(ex);
             }
         }
-        public Monster GetRandomMonster()
+        public async Task<Monster> GetRandomMonster()
         {
-            return GetMonsters()[random.Next(1, monsters.Count)];
+            return (await GetMonsters())[random.Next(1, monsters.Count)];
         }
 
-        public List<Monster> GetRandomMonsters(int Level)
+        public async Task<List<Monster>> GetRandomMonsters(int Level)
         {
             List<Monster> DungeonMonsters = new List<Monster>();
             int RandomMonsterCount = random.Next(1, monsters.Count);
-            monsters = GetMonsters().Where(x => x.Level <= Level + 2).ToList();
+            monsters = (await GetMonsters()).Where(x => x.Level <= Level + 2).ToList();
 
             for (int i = 0; i < RandomMonsterCount; i++)
             {

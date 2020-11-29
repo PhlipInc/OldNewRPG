@@ -4,6 +4,8 @@ using DataAccess;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace InNewWorldRPG
 {
@@ -24,12 +26,12 @@ namespace InNewWorldRPG
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
-            fighter = fighter ?? FighterDataManager.GetFighter(user, fighter);
-            ItemDataManager.GetItems();
-            MonsterDataManager.GetMonsters();
-            DungeonDataManager.GetDungeons();
+            fighter = fighter ?? await FighterDataManager.GetFighter(user, fighter);
+            await ItemDataManager.GetItems();
+            await MonsterDataManager.GetMonsters();
+            await DungeonDataManager.GetDungeons();
             if (fighter.IsFirstTimePlaying)
             {
                 NewUser(fighter);
@@ -52,10 +54,10 @@ namespace InNewWorldRPG
             richTextBox1.AppendText(sb.ToString());
         }
 
-        private void NewUser(Fighter fighter)
+        private async void NewUser(Fighter fighter)
         {
             fighter.IsFirstTimePlaying = false;
-            FighterDataManager.SetFighter(user, fighter);
+            await FighterDataManager.SetFighter(user, fighter);
             StringBuilder sb = new StringBuilder();
             sb.Append($"――――――――――――――――――――――――――――――――――――――――――――――{nl}");
             sb.Append($"{nl}WELCOME IN TO THE NEW OLD WORLD(HELL){nl}");
@@ -66,15 +68,15 @@ namespace InNewWorldRPG
             richTextBox1.AppendText(sb.ToString());
         }
 
-        private void StoreButton_Click(object sender, EventArgs e)
+        private async void StoreButton_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append($"―――――――――――――――――――――――――――――――――――――――――――――{nl}");
             sb.Append($"{nl}THE ONE THE ONLY HOLY STORE | {fighter.Name.ToUpper()}!!!!!!!{nl}");
             sb.Append($"{nl}―――――――――――――――――――――――――――――――――――――――――――――{nl}");
-            for (int i = 0; i < ItemDataManager.GetItems().Count; i++)
+            for (int i = 0; i < (await ItemDataManager.GetItems()).Count; i++)
             {
-                sb.Append($"{ItemDataManager.GetItems()[i]}{nl}");
+                sb.Append($"{(await ItemDataManager.GetItems())[i]}{nl}");
             }
             sb.Append($"THIS IS JUST A TEMP STORE BUTTON{nl}");
             sb.Append($"FUTURE BUTTON WILL OPEN THE STORE UI{nl}");
@@ -107,20 +109,20 @@ namespace InNewWorldRPG
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private async void button5_Click(object sender, EventArgs e)
         {
-            foreach (var item in MonsterDataManager.GetMonsters())
+            foreach (var item in (await MonsterDataManager.GetMonsters()))
             {
                 richTextBox1.AppendText(nl + item + nl);
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private async void button6_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
-            Dungeon RandomDungeon = DungeonDataManager.GetRandomDungeon(fighter);
+            Dungeon RandomDungeon = (await DungeonDataManager.GetRandomDungeon(fighter));
             fighter.Dung = RandomDungeon;
-            FighterDataManager.SetFighter(user, fighter);
+            await FighterDataManager.SetFighter(user, fighter);
             sb.Append(RandomDungeon);
             richTextBox1.AppendText(sb.ToString());
         }
@@ -129,11 +131,11 @@ namespace InNewWorldRPG
         {
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private async void button8_Click(object sender, EventArgs e)
         {
-            fighter.Dung = DungeonDataManager.GetRandomDungeon(fighter);
+            fighter.Dung = (await DungeonDataManager.GetRandomDungeon(fighter));
             fighter.PlayerState = State.IN_DUNGEON_STATE;
-            FighterDataManager.SetFighter(user, fighter);
+            await FighterDataManager.SetFighter(user, fighter);
         }
 
         private void ManageFighterDungeon(State state)

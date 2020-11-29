@@ -23,7 +23,7 @@ namespace DataAccess
         List<Item> items { get; set; }
 
 
-        public List<Item> GetItems()
+        public async Task<List<Item>> GetItems()
         {
             if (!File.Exists(ItemPath))
             {
@@ -54,7 +54,7 @@ namespace DataAccess
                         ShopPrice = 42341
                     }
                 };
-                SetItems(items);
+                await SetItems(items);
             }
             else
             {
@@ -66,7 +66,7 @@ namespace DataAccess
             }
             return items;
         }
-        public async void SetItems(List<Item> items)
+        public async Task SetItems(List<Item> items)
         {
             try
             {
@@ -82,15 +82,15 @@ namespace DataAccess
             }
         }
 
-        public Item GetRandomItem()
+        public async Task<Item> GetRandomItem()
         {
-            return GetItems()[random.Next(1, items.Count)];
+            return (await GetItems())[random.Next(1, items.Count)];
         }
 
-        public List<Item> GetRandomItems()
+        public async Task<List<Item>> GetRandomItems()
         {
             List<Item> RandomItems = new List<Item>();
-            items = GetItems();
+            items = (await GetItems());
             int RandomItemCount = random.Next(1, items.Count);
 
             for (int i = 0; i < RandomItemCount; i++)
