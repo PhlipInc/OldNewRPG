@@ -108,7 +108,7 @@ namespace InNewWorldRPG
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(160, 68);
             this.button8.TabIndex = 8;
-            this.button8.Text = "Level Add";
+            this.button8.Text = "Enter Dungeon";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
@@ -124,11 +124,12 @@ namespace InNewWorldRPG
             // 
             // button7
             // 
+            this.button7.Enabled = false;
             this.button7.Location = new System.Drawing.Point(836, 309);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(160, 68);
             this.button7.TabIndex = 10;
-            this.button7.Text = "Level Add Alt";
+            this.button7.Text = "Leave Dungeon";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 

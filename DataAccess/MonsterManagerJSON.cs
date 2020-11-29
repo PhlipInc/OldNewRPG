@@ -82,6 +82,7 @@ namespace DataAccess
                 using (StreamReader sr = new StreamReader(MonsterPath))
                 {
                     monsters = JsonSerializer.Deserialize<List<Monster>>(sr.ReadToEnd());
+                    sr.Dispose();
                 }
             }
             return monsters;
@@ -93,6 +94,7 @@ namespace DataAccess
                 using (FileStream fs = File.Create(MonsterPath))
                 {
                     await JsonSerializer.SerializeAsync(fs, this.monsters, jso);
+                    fs.Dispose();
                 }
             }
             catch (Exception ex)
@@ -100,11 +102,22 @@ namespace DataAccess
                 Debug.WriteLine(ex);
             }
         }
-
         public Monster GetRandomMonster()
         {
             return GetMonsters()[random.Next(1, monsters.Count)];
         }
 
+        public List<Monster> GetRandomMonsters(int Level)
+        {
+            List<Monster> DungeonMonsters = new List<Monster>();
+            int RandomMonsterCount = random.Next(1, monsters.Count);
+            monsters = GetMonsters().Where(x => x.Level <= Level + 2).ToList();
+
+            for (int i = 0; i < RandomMonsterCount; i++)
+            {
+                DungeonMonsters.Add(monsters[i]);
+            }
+            return DungeonMonsters;
+        }
     }
 }

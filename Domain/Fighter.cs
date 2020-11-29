@@ -30,6 +30,7 @@ namespace Domain
         public bool IsFirstTimePlaying { get; set; }
         public State PlayerState { get; set; }
         private string name = Environment.UserName;
+        public Dungeon Dung { get; set; }
 
         public override string ToString()
         {

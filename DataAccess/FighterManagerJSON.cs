@@ -13,13 +13,12 @@ namespace DataAccess
         JsonSerializerOptions jso = new JsonSerializerOptions() { WriteIndented = true };
         public const string FighterPathStart = "rpg/OldNewRPG/";
         public const string FighterPathEnd = "-Fighter.json";
-        Fighter fighter;
         public FighterManagerJSON(Random random)
         {
             //this.random = random;
         }
 
-        public Fighter GetFighter(string id)
+        public Fighter GetFighter(string id, Fighter fighter)
         {
             if(!File.Exists(FighterPathStart + id + FighterPathEnd))
             {
@@ -31,6 +30,7 @@ namespace DataAccess
                 using (StreamReader sr =  new  StreamReader(FighterPathStart + id + FighterPathEnd))
                 {
                     fighter = JsonSerializer.Deserialize<Fighter>(sr.ReadToEnd());
+                    sr.Dispose();
                 }
             }
             return fighter;
@@ -42,6 +42,7 @@ namespace DataAccess
                 using (FileStream fs = File.Create(FighterPathStart + id + FighterPathEnd))
                 {
                     await JsonSerializer.SerializeAsync(fs, fighter, jso);
+                    fs.Dispose();
                 }
             }
             catch(Exception ex)

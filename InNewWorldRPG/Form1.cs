@@ -3,6 +3,7 @@ using Domain;
 using DataAccess;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace InNewWorldRPG
 {
@@ -25,7 +26,10 @@ namespace InNewWorldRPG
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            fighter = fighter ?? FighterDataManager.GetFighter(user);
+            fighter = fighter ?? FighterDataManager.GetFighter(user, fighter);
+            ItemDataManager.GetItems();
+            MonsterDataManager.GetMonsters();
+            DungeonDataManager.GetDungeons();
             if (fighter.IsFirstTimePlaying)
             {
                 NewUser(fighter);
@@ -100,10 +104,7 @@ namespace InNewWorldRPG
 
         private void button4_Click(object sender, EventArgs e)
         {
-            foreach (var item in DungeonDataManager.GetDungeons())
-            {
-                richTextBox1.AppendText(nl + item + nl);
-            }
+
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -117,28 +118,45 @@ namespace InNewWorldRPG
         private void button6_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
-            Dungeon RandomDungeon = DungeonDataManager.GetRandomDungeon();
+            Dungeon RandomDungeon = DungeonDataManager.GetRandomDungeon(fighter);
+            fighter.Dung = RandomDungeon;
+            FighterDataManager.SetFighter(user, fighter);
             sb.Append(RandomDungeon);
             richTextBox1.AppendText(sb.ToString());
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            Monster RandomMonster = MonsterDataManager.GetRandomMonster();
-            sb.Append(RandomMonster);
-            richTextBox1.AppendText(sb.ToString());
-            //fighter.IncrementLevelFromExperience(Convert.ToInt32(fighter.Experience * 1.1), fighter);
-            //FighterDataManager.SetFighter(user, fighter);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            fighter.AddLevel(1);
-            fighter.Experience = fighter.Experience * 1.5;
-            fighter.HealthPoints = fighter.MaxHp(fighter.Level);
+            fighter.Dung = DungeonDataManager.GetRandomDungeon(fighter);
+            fighter.PlayerState = State.IN_DUNGEON_STATE;
             FighterDataManager.SetFighter(user, fighter);
         }
 
+        private void ManageFighterDungeon(State state)
+        {
+            switch (state)
+            {
+                case State.IN_DUNGEON_STATE:
+                    richTextBox1.AppendText($"{nl}{fighter.Name} is in dungeon, and ready to fight{nl}");
+                    richTextBox1.AppendText($"{nl}{fighter.Name} entered {fighter.Dung.Name}.{nl}");
+                    break;
+                case State.IN_FIGHT_STATE:
+                    richTextBox1.AppendText($"{nl}{fighter.Name} is in a fight, choose to fight the Monster or run away{nl}");
+                    break;
+                case State.AFTER_FIGHT_STATE:
+                    richTextBox1.AppendText($"{nl}{fighter.Name} just finised the fight and is ready to receive their rewards{nl}");
+                    break;
+                case State.NOT_IN_DUNGEON_STATE:
+                    richTextBox1.AppendText($"{nl}{fighter.Name} is not in a dungeon, Lets enter a dungeon to fight monsters{nl}");
+                    break;
+                default:
+                    Debug.WriteLine("Sorry an erorr occured while checked and setting the fighters status");
+                    break;
+            }
+        }
     }
 }

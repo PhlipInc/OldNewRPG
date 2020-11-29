@@ -61,6 +61,7 @@ namespace DataAccess
                 using (StreamReader sr = new StreamReader(ItemPath))
                 {
                     items = JsonSerializer.Deserialize<List<Item>>(sr.ReadToEnd());
+                    sr.Dispose();
                 }
             }
             return items;
@@ -72,6 +73,7 @@ namespace DataAccess
                 using (FileStream fs = File.Create(ItemPath))
                 {
                     await JsonSerializer.SerializeAsync(fs, this.items, jso);
+                    fs.Dispose();
                 }
             }
             catch (Exception ex)
@@ -85,6 +87,18 @@ namespace DataAccess
             return GetItems()[random.Next(1, items.Count)];
         }
 
+        public List<Item> GetRandomItems()
+        {
+            List<Item> RandomItems = new List<Item>();
+            items = GetItems();
+            int RandomItemCount = random.Next(1, items.Count);
+
+            for (int i = 0; i < RandomItemCount; i++)
+            {
+                RandomItems.Add(items[i]);
+            }
+            return RandomItems;
+        }
 
     }
 }
