@@ -13,9 +13,9 @@ namespace Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Name: {Name}");
-            sb.AppendLine($"Description: {Description}");
-            sb.AppendLine($"Shop Price: {ShopPrice}");
+            sb.Append("Name: ").Append(Name);
+            sb.Append("Description: ").Append(Description);
+            sb.Append("Shop Price: ").Append(ShopPrice);
             return sb.ToString();
         }
     }

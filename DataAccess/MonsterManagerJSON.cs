@@ -14,19 +14,19 @@ namespace DataAccess
     {
         public MonsterManagerJSON(Random random)
         {
-
+            this.random = random;
         }
 
-        private Random random = new Random();
-        JsonSerializerOptions jso = new JsonSerializerOptions() { WriteIndented = true };
+        private readonly Random random = new Random();
+        private readonly JsonSerializerOptions jso = new JsonSerializerOptions() { WriteIndented = true };
         public const string MonsterPath = "rpg/OldNewRPG/Monsters.json";
-        List<Monster> monsters { get; set; }
+        private List<Monster> Monsters { get; set; }
 
         public async Task<List<Monster>> GetMonsters()
         {
             if (!File.Exists(MonsterPath))
             {
-                monsters = new List<Monster>
+                Monsters = new List<Monster>
                 {
                     new Monster()
                     {
@@ -37,7 +37,8 @@ namespace DataAccess
                         WeaponStrength = 1,
                         HealthPoints = 10,
                         Level = 1,
-                        RewardExperience = 100
+                        RewardExperience = 100,
+                        RewardPotatoes = 1000
                     },
                     new Monster()
                     {
@@ -48,7 +49,8 @@ namespace DataAccess
                         WeaponStrength = 2,
                         HealthPoints = 20,
                         Level = 2,
-                        RewardExperience = 200
+                        RewardExperience = 200,
+                        RewardPotatoes = 2000
                     },
                     new Monster()
                     {
@@ -59,7 +61,8 @@ namespace DataAccess
                         WeaponStrength = 3,
                         HealthPoints = 30,
                         Level = 3,
-                        RewardExperience = 300
+                        RewardExperience = 300,
+                        RewardPotatoes = 3000
                     },
                     new Monster()
                     {
@@ -71,30 +74,25 @@ namespace DataAccess
                         HealthPoints = 40,
                         Level = 4,
                         RewardExperience = 400,
+                        RewardPotatoes = 4000,
                         IsBoss = true
                     }
-
                 };
-                await SetMonsters(monsters);
+                await SetMonsters().ConfigureAwait(false);
             }
             else
             {
-                using (FileStream fs = File.OpenRead(MonsterPath))
-                {
-                    monsters = await JsonSerializer.DeserializeAsync<List<Monster>>(fs);
-                }
+                using FileStream fs = File.OpenRead(MonsterPath);
+                Monsters = await JsonSerializer.DeserializeAsync<List<Monster>>(fs).ConfigureAwait(false);
             }
-            return monsters;
+            return Monsters;
         }
-        public async Task SetMonsters(List<Monster> monsters)
+        public async Task SetMonsters()
         {
             try
             {
-                using (FileStream fs = File.Create(MonsterPath))
-                {
-                    await JsonSerializer.SerializeAsync(fs, this.monsters, jso);
-                    fs.Dispose();
-                }
+                using FileStream fs = File.Create(MonsterPath);
+                await JsonSerializer.SerializeAsync(fs, this.Monsters, jso).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -103,18 +101,18 @@ namespace DataAccess
         }
         public async Task<Monster> GetRandomMonster()
         {
-            return (await GetMonsters())[random.Next(1, monsters.Count)];
+            return (await GetMonsters().ConfigureAwait(false))[random.Next(1, Monsters.Count)];
         }
 
         public async Task<List<Monster>> GetRandomMonsters(int Level)
         {
             List<Monster> DungeonMonsters = new List<Monster>();
-            int RandomMonsterCount = random.Next(1, monsters.Count);
-            monsters = (await GetMonsters()).Where(x => x.Level <= Level + 2).ToList();
+            int RandomMonsterCount = random.Next(1, Monsters.Count);
+            Monsters = (await GetMonsters().ConfigureAwait(false)).Where(x => x.Level <= Level + 2).ToList();
 
             for (int i = 0; i < RandomMonsterCount; i++)
             {
-                DungeonMonsters.Add(monsters[i]);
+                DungeonMonsters.Add(Monsters[i]);
             }
             return DungeonMonsters;
         }

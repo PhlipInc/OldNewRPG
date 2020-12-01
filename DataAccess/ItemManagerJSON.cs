@@ -14,20 +14,19 @@ namespace DataAccess
     {
         public ItemManagerJSON(Random random)
         {
-
+            this.random = random;
         }
 
-        private Random random = new Random();
-        JsonSerializerOptions jso = new JsonSerializerOptions() { WriteIndented = true };
-        public const string ItemPath = "rpg/OldNewRPG/Items.json";
-        List<Item> items { get; set; }
-
+        private readonly Random random = new Random();
+        private readonly JsonSerializerOptions jso = new JsonSerializerOptions() { WriteIndented = true };
+        private const string ItemPath = "rpg/OldNewRPG/Items.json";
+        private List<Item> Items { get; set; }
 
         public async Task<List<Item>> GetItems()
         {
             if (!File.Exists(ItemPath))
             {
-                items = new List<Item>
+                Items = new List<Item>
                 {
                     new Item()
                     {
@@ -54,27 +53,22 @@ namespace DataAccess
                         ShopPrice = 42341
                     }
                 };
-                await SetItems(items);
+                await SetItems().ConfigureAwait(false);
             }
             else
             {
-                using (StreamReader sr = new StreamReader(ItemPath))
-                {
-                    items = JsonSerializer.Deserialize<List<Item>>(sr.ReadToEnd());
-                    sr.Dispose();
-                }
+                using FileStream fs = File.OpenRead(ItemPath);
+                Items = await JsonSerializer.DeserializeAsync<List<Item>>(fs).ConfigureAwait(false);
             }
-            return items;
+            return Items;
         }
-        public async Task SetItems(List<Item> items)
+
+        public async Task SetItems()
         {
             try
             {
-                using (FileStream fs = File.Create(ItemPath))
-                {
-                    await JsonSerializer.SerializeAsync(fs, this.items, jso);
-                    fs.Dispose();
-                }
+                using FileStream fs = File.Create(ItemPath);
+                await JsonSerializer.SerializeAsync(fs, this.Items, jso).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -84,21 +78,20 @@ namespace DataAccess
 
         public async Task<Item> GetRandomItem()
         {
-            return (await GetItems())[random.Next(1, items.Count)];
+            return (await GetItems().ConfigureAwait(false))[random.Next(1, Items.Count)];
         }
 
         public async Task<List<Item>> GetRandomItems()
         {
             List<Item> RandomItems = new List<Item>();
-            items = (await GetItems());
-            int RandomItemCount = random.Next(1, items.Count);
+            Items = (await GetItems().ConfigureAwait(false));
+            int RandomItemCount = random.Next(1, Items.Count);
 
             for (int i = 0; i < RandomItemCount; i++)
             {
-                RandomItems.Add(items[i]);
+                RandomItems.Add(Items[i]);
             }
             return RandomItems;
         }
-
     }
 }

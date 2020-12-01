@@ -14,14 +14,13 @@ namespace DataAccess
     {
         public DungeonManagerJSON(Random random)
         {
-
+            this.random = random;
         }
 
-        private Random random = new Random();
-        JsonSerializerOptions jso = new JsonSerializerOptions() { WriteIndented = true };
+        private readonly Random random = new Random();
+        private readonly JsonSerializerOptions jso = new JsonSerializerOptions() { WriteIndented = true };
         public const string DungeonPath = "rpg/OldNewRPG/Dungeons.json";
-        List<Dungeon> dungeons { get; set; }
-        List<Monster> monsters { get; set; }
+        private List<Dungeon> Dungeons { get; set; }
 
         public async Task<List<Dungeon>> GetDungeons()
         {
@@ -29,62 +28,57 @@ namespace DataAccess
             {
                 MonsterManagerJSON MonsterManager = new MonsterManagerJSON(random);
                 ItemManagerJSON ItemManager = new ItemManagerJSON(random);
-                await MonsterManager.GetMonsters();
-                dungeons = new List<Dungeon>
+                await MonsterManager.GetMonsters().ConfigureAwait(false);
+                Dungeons = new List<Dungeon>
                 {
                     new Dungeon()
                     {
                         Name = "Dungeon 1",
                         Level = 1,
                         RewardExperience = 100,
-                        RewardItems = (await ItemManager.GetRandomItems()),
-                        Monsters = (await MonsterManager.GetRandomMonsters(1))
+                        RewardItems = (await ItemManager.GetRandomItems().ConfigureAwait(false)),
+                        Monsters = (await MonsterManager.GetRandomMonsters(1).ConfigureAwait(false))
                     },
                     new Dungeon()
                     {
                         Name = "Dungeon 2",
                         Level = 2,
                         RewardExperience = 200,
-                        RewardItems = (await ItemManager.GetRandomItems()),
-                        Monsters = (await MonsterManager.GetRandomMonsters(2))
+                        RewardItems = (await ItemManager.GetRandomItems().ConfigureAwait(false)),
+                        Monsters = (await MonsterManager.GetRandomMonsters(2).ConfigureAwait(false))
                     },
                     new Dungeon()
                     {
                         Name = "Dungeon 3",
                         Level = 3,
                         RewardExperience = 300,
-                        RewardItems = (await ItemManager.GetRandomItems()),
-                        Monsters = (await MonsterManager.GetRandomMonsters(3))
+                        RewardItems = (await ItemManager.GetRandomItems().ConfigureAwait(false)),
+                        Monsters = (await MonsterManager.GetRandomMonsters(3).ConfigureAwait(false))
                     },
                     new Dungeon()
                     {
                         Name = "Dungeon 4",
                         Level = 4,
                         RewardExperience = 400,
-                        RewardItems = (await ItemManager.GetRandomItems()),
-                        Monsters = (await MonsterManager.GetRandomMonsters(4))
+                        RewardItems = (await ItemManager.GetRandomItems().ConfigureAwait(false)),
+                        Monsters = (await MonsterManager.GetRandomMonsters(4).ConfigureAwait(false))
                     }
                 };
-                await SetDungeons(dungeons);
+                await SetDungeons().ConfigureAwait(false);
             }
             else
             {
-                using (FileStream fs = File.OpenRead(DungeonPath))
-                {
-                    dungeons = (await JsonSerializer.DeserializeAsync<List<Dungeon>>(fs));
-                }
+                using FileStream fs = File.OpenRead(DungeonPath);
+                Dungeons = (await JsonSerializer.DeserializeAsync<List<Dungeon>>(fs).ConfigureAwait(false));
             }
-            return dungeons;
+            return Dungeons;
         }
-        public async Task SetDungeons(List<Dungeon> dungeons)
+        public async Task SetDungeons()
         {
             try
             {
-                using (FileStream fs = File.Create(DungeonPath))
-                {
-                    await JsonSerializer.SerializeAsync(fs, this.dungeons, jso);
-                    fs.Dispose();
-                }
+                using FileStream fs = File.Create(DungeonPath);
+                await JsonSerializer.SerializeAsync(fs, this.Dungeons, jso).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -94,8 +88,7 @@ namespace DataAccess
 
         public async Task<Dungeon> GetRandomDungeon(Fighter fighter)
         {
-            Debug.WriteLine(fighter.Name);
-            fighter.Dung = (await GetDungeons())[random.Next(1, dungeons.Count)];
+            fighter.Dung = (await GetDungeons().ConfigureAwait(false))[random.Next(1, Dungeons.Count)];
             return fighter.Dung;
         }
     }

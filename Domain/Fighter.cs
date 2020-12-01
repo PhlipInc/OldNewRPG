@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,47 +27,52 @@ namespace Domain
         public int Level { get; set; }
         public double Experience { get; set; }
         public double HealthPoints { get; set; }
-        public Dictionary<string, int> Items { get; set; }
+        public List<Item> Items { get; set; }
         public bool IsFirstTimePlaying { get; set; }
         public State PlayerState { get; set; }
-        private string name = Environment.UserName;
+        private readonly string name = Environment.UserName;
         public Dungeon Dung { get; set; }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Name: {Name}");
-            sb.AppendLine($"Potatoes: {Potatoes}");
-            sb.AppendLine($"Id: {Id}");
-            sb.AppendLine($"Weapon: {Weapon}");
-            sb.AppendLine($"Armor: {Armor}");
-            sb.AppendLine($"Items: [ {string.Join(" ] | [ ", Items.Keys)} ]");
-            sb.AppendLine($"XP: {Convert.ToInt32(Experience)}");
-            sb.AppendLine($"Level: {Level}");
-            sb.AppendLine($"HP: {HealthPoints} / {MaxHp(Level)}");
-            sb.AppendLine($"First Timer: {IsFirstTimePlaying}");
-            sb.AppendLine($"Status: {PlayerState}");
+            sb.Append("Name: ").Append(Name).Append(Environment.NewLine);
+            sb.Append("Potatoes: ").Append(Potatoes).Append(Environment.NewLine);
+            sb.Append("Id: ").Append(Id).Append(Environment.NewLine);
+            sb.Append("Weapon: ").Append(Weapon).Append('[').Append(WeaponStrength).Append(']').Append(Environment.NewLine);
+            sb.Append("Armor: ").Append(Armor).Append('[').Append(ArmorStrength).Append(']').Append(Environment.NewLine);
+            sb.Append("Items: | ");
+            foreach (var item in Items)
+            {
+                sb.Append(item.Name).Append(" | ");
+            }
+            sb.Append(Environment.NewLine);
+            sb.Append("XP: ").Append(Experience).Append(Environment.NewLine);
+            sb.Append("Level: ").Append(Level).Append(Environment.NewLine);
+            sb.Append("HP: ").Append(HealthPoints).Append('/').Append(MaxHp(Level)).Append(Environment.NewLine);
+            sb.Append("First Timer: ").Append(IsFirstTimePlaying).Append(Environment.NewLine);
+            sb.Append("Status: ").Append(PlayerState.ToString()).Append(Environment.NewLine);
             return sb.ToString();
         }
 
-        public double MaxHp(int level)
+        public static double MaxHp(double level)
         {
             return 10 * level;
         }
 
-        public void AddItem(string item)
+        public void AddItem(Item item)
         {
-            if (Items.ContainsKey(item))
+            if (Items.Contains(item))
             {
-                Items[item]++;
+                Debug.WriteLine("Already Contains this item");
             }
             else
             {
-                Items.Add(item, 1);
+                Items.Add(item);
             }
         }
 
-        public void RemoveItem(string item)
+        public void RemoveItem(Item item)
         {
             //Items.Remove[item];
             Items.Remove(item);
@@ -75,12 +81,6 @@ namespace Domain
         {
             Experience += exp;
         }
-
-        public Task<Fighter> Result()
-        {
-            throw new NotImplementedException();
-        }
-
         public void RemoveExp(int exp)
         {
             Experience -= exp;
@@ -100,34 +100,54 @@ namespace Domain
         public void RemoveHP(double hp)
         {
             HealthPoints -= hp;
+            //Fix so the format is 00000.0
+            //HealthPoints -= hp;
         }
         public void UpdateStatus(State state)
         {
             PlayerState = state;
         }
-        public void IncrementLevelFromExperience(int experience, Fighter fighter)
+        public static void IncrementLevelFromExperience(int experience, Fighter fighter)
         {
-            fighter.Experience = (fighter.Experience + experience);
+            fighter.Experience += experience;
             double level = 1 / (Math.Log(1.5)) * Math.Log(fighter.Experience / 740);
             fighter.Level = Convert.ToInt32(level);
-            fighter.HealthPoints = fighter.MaxHp(fighter.Level);
+            fighter.HealthPoints = MaxHp(fighter.Level);
         }
 
         public static Fighter NewFighterInstance()
         {
-            Fighter nFighter = new Fighter();
-            nFighter.Items = new Dictionary<string, int>();
-            nFighter.Items.Add("Nerds", 5);
-            nFighter.Items.Add("Are", 5);
-            nFighter.Items.Add("Not", 5);
-            nFighter.Items.Add("Crzy", 5);
+            Fighter nFighter = new Fighter
+            {
+                Items = new List<Item>()
+                {
+                    new Item
+                    {
+                        Name = "Item 1",
+                        Description = "This is the description for Item 1",
+                        ShopPrice = 123
+                    },
+                    new Item
+                    {
+                        Name = "Item 2",
+                        Description = "This is the description for Item 2",
+                        ShopPrice = 234
+                    },
+                    new Item
+                    {
+                        Name = "Item 3",
+                        Description = "This is the description for Item 3",
+                        ShopPrice = 324214
+                    }
+                }
+            };
 
             nFighter.Name = nFighter.name;
             nFighter.Potatoes = 2000;
             nFighter.WeaponStrength = +1;
-            nFighter.Weapon = $"Potato Sword[{nFighter.WeaponStrength}]";
+            nFighter.Weapon = "Potato Sword";
             nFighter.ArmorStrength = +0.5;
-            nFighter.Armor = $"Potato Armor[{nFighter.ArmorStrength}]";
+            nFighter.Armor = "Potato Armor";
 
             nFighter.Items = nFighter.Items;
             nFighter.Experience = 1110.5;

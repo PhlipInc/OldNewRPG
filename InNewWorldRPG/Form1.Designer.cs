@@ -29,124 +29,126 @@ namespace InNewWorldRPG
         /// </summary>
         private void InitializeComponent()
         {
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.GamePadRichText = new System.Windows.Forms.RichTextBox();
+            this.StatsButton = new System.Windows.Forms.Button();
+            this.StoreButton = new System.Windows.Forms.Button();
+            this.GameHelpButton = new System.Windows.Forms.Button();
+            this.RunAwayButton = new System.Windows.Forms.Button();
+            this.FighterItemsButton = new System.Windows.Forms.Button();
+            this.EnterDungeonButton = new System.Windows.Forms.Button();
+            this.FightButton = new System.Windows.Forms.Button();
+            this.LeaveDungeonButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // richTextBox1
+            // GamePadRichText
             // 
-            this.richTextBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.richTextBox1.Location = new System.Drawing.Point(12, 12);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(628, 587);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.GamePadRichText.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.GamePadRichText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GamePadRichText.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.GamePadRichText.Location = new System.Drawing.Point(12, 12);
+            this.GamePadRichText.Name = "GamePadRichText";
+            this.GamePadRichText.ReadOnly = true;
+            this.GamePadRichText.Size = new System.Drawing.Size(628, 587);
+            this.GamePadRichText.TabIndex = 0;
+            this.GamePadRichText.Text = "";
             // 
-            // button2
+            // StatsButton
             // 
-            this.button2.Location = new System.Drawing.Point(836, 439);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(160, 160);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Stats";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.StatsButton_Click);
+            this.StatsButton.Location = new System.Drawing.Point(836, 439);
+            this.StatsButton.Name = "StatsButton";
+            this.StatsButton.Size = new System.Drawing.Size(160, 160);
+            this.StatsButton.TabIndex = 2;
+            this.StatsButton.Text = "Stats";
+            this.StatsButton.UseVisualStyleBackColor = true;
+            this.StatsButton.Click += new System.EventHandler(this.StatsButton_Click);
             // 
-            // button1
+            // StoreButton
             // 
-            this.button1.Location = new System.Drawing.Point(663, 439);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(160, 160);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Store";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.StoreButton_Click);
+            this.StoreButton.Location = new System.Drawing.Point(663, 439);
+            this.StoreButton.Name = "StoreButton";
+            this.StoreButton.Size = new System.Drawing.Size(160, 160);
+            this.StoreButton.TabIndex = 3;
+            this.StoreButton.Text = "Store";
+            this.StoreButton.UseVisualStyleBackColor = true;
+            this.StoreButton.Click += new System.EventHandler(this.StoreButton_Click);
             // 
-            // button3
+            // GameHelpButton
             // 
-            this.button3.Location = new System.Drawing.Point(1010, 439);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(160, 160);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Help";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.GameHelpButton.Location = new System.Drawing.Point(1010, 439);
+            this.GameHelpButton.Name = "GameHelpButton";
+            this.GameHelpButton.Size = new System.Drawing.Size(160, 160);
+            this.GameHelpButton.TabIndex = 4;
+            this.GameHelpButton.Text = "Help";
+            this.GameHelpButton.UseVisualStyleBackColor = true;
+            this.GameHelpButton.Click += new System.EventHandler(this.GameHelpButton_Click);
             // 
-            // button5
+            // RunAwayButton
             // 
-            this.button5.Location = new System.Drawing.Point(836, 12);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(160, 68);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "Run Away";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.RunAwayButton.Enabled = false;
+            this.RunAwayButton.Location = new System.Drawing.Point(836, 12);
+            this.RunAwayButton.Name = "RunAwayButton";
+            this.RunAwayButton.Size = new System.Drawing.Size(160, 68);
+            this.RunAwayButton.TabIndex = 5;
+            this.RunAwayButton.Text = "Run Away";
+            this.RunAwayButton.UseVisualStyleBackColor = true;
+            this.RunAwayButton.Click += new System.EventHandler(this.RunAwayButton_Click);
             // 
-            // button6
+            // FighterItemsButton
             // 
-            this.button6.Location = new System.Drawing.Point(663, 161);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(160, 68);
-            this.button6.TabIndex = 7;
-            this.button6.Text = "Items";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.FighterItemsButton.Location = new System.Drawing.Point(663, 161);
+            this.FighterItemsButton.Name = "FighterItemsButton";
+            this.FighterItemsButton.Size = new System.Drawing.Size(160, 68);
+            this.FighterItemsButton.TabIndex = 7;
+            this.FighterItemsButton.Text = "Items";
+            this.FighterItemsButton.UseVisualStyleBackColor = true;
+            this.FighterItemsButton.Click += new System.EventHandler(this.FighterItemsButton_Click);
             // 
-            // button8
+            // EnterDungeonButton
             // 
-            this.button8.Location = new System.Drawing.Point(1021, 161);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(160, 68);
-            this.button8.TabIndex = 8;
-            this.button8.Text = "Enter Dungeon";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.EnterDungeonButton.Location = new System.Drawing.Point(1021, 161);
+            this.EnterDungeonButton.Name = "EnterDungeonButton";
+            this.EnterDungeonButton.Size = new System.Drawing.Size(160, 68);
+            this.EnterDungeonButton.TabIndex = 8;
+            this.EnterDungeonButton.Text = "Enter Dungeon";
+            this.EnterDungeonButton.UseVisualStyleBackColor = true;
+            this.EnterDungeonButton.Click += new System.EventHandler(this.EnterDungeonButton_Click);
             // 
-            // button4
+            // FightButton
             // 
-            this.button4.Location = new System.Drawing.Point(836, 161);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(160, 68);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Fight";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.FightButton.Enabled = false;
+            this.FightButton.Location = new System.Drawing.Point(836, 161);
+            this.FightButton.Name = "FightButton";
+            this.FightButton.Size = new System.Drawing.Size(160, 68);
+            this.FightButton.TabIndex = 9;
+            this.FightButton.Text = "Fight";
+            this.FightButton.UseVisualStyleBackColor = true;
+            this.FightButton.Click += new System.EventHandler(this.FightButton_Click);
             // 
-            // button7
+            // LeaveDungeonButton
             // 
-            this.button7.Enabled = false;
-            this.button7.Location = new System.Drawing.Point(836, 309);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(160, 68);
-            this.button7.TabIndex = 10;
-            this.button7.Text = "Leave Dungeon";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.LeaveDungeonButton.Enabled = false;
+            this.LeaveDungeonButton.Location = new System.Drawing.Point(836, 309);
+            this.LeaveDungeonButton.Name = "LeaveDungeonButton";
+            this.LeaveDungeonButton.Size = new System.Drawing.Size(160, 68);
+            this.LeaveDungeonButton.TabIndex = 10;
+            this.LeaveDungeonButton.Text = "Leave Dungeon";
+            this.LeaveDungeonButton.UseVisualStyleBackColor = true;
+            this.LeaveDungeonButton.Click += new System.EventHandler(this.LeaveDungeonButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1194, 611);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.LeaveDungeonButton);
+            this.Controls.Add(this.FightButton);
+            this.Controls.Add(this.EnterDungeonButton);
+            this.Controls.Add(this.FighterItemsButton);
+            this.Controls.Add(this.RunAwayButton);
+            this.Controls.Add(this.GameHelpButton);
+            this.Controls.Add(this.StoreButton);
+            this.Controls.Add(this.StatsButton);
+            this.Controls.Add(this.GamePadRichText);
             this.Font = new System.Drawing.Font("Roboto", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -156,16 +158,15 @@ namespace InNewWorldRPG
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button StatsButton;
+        private System.Windows.Forms.Button StoreButton;
+        private System.Windows.Forms.Button GameHelpButton;
+        private System.Windows.Forms.Button RunAwayButton;
+        private System.Windows.Forms.Button FighterItemsButton;
+        private System.Windows.Forms.Button EnterDungeonButton;
+        private System.Windows.Forms.Button FightButton;
+        private System.Windows.Forms.Button LeaveDungeonButton;
+        private System.Windows.Forms.RichTextBox GamePadRichText;
     }
 }
 

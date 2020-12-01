@@ -10,28 +10,24 @@ namespace DataAccess
 {
     public class FighterManagerJSON
     {
-        private Random random = new Random();
-        JsonSerializerOptions jso = new JsonSerializerOptions() { WriteIndented = true };
+        public FighterManagerJSON()
+        {
+        }
+        private readonly JsonSerializerOptions jso = new JsonSerializerOptions() { WriteIndented = true };
         public const string FighterPathStart = "rpg/OldNewRPG/";
         public const string FighterPathEnd = "-Fighter.json";
-        public FighterManagerJSON(Random random)
-        {
-            //this.random = random;
-        }
 
         public async Task<Fighter> GetFighter(string id, Fighter fighter)
         {
             if(!File.Exists(FighterPathStart + id + FighterPathEnd))
             {
                 fighter = Fighter.NewFighterInstance();
-                await SetFighter(id, fighter);
+                await SetFighter(id, fighter).ConfigureAwait(false);
             }
             else
             {
-                using (FileStream fs =  File.OpenRead(FighterPathStart + id + FighterPathEnd))
-                {
-                    fighter = await JsonSerializer.DeserializeAsync<Fighter>(fs);
-                }
+                using FileStream fs = File.OpenRead(FighterPathStart + id + FighterPathEnd);
+                fighter = await JsonSerializer.DeserializeAsync<Fighter>(fs).ConfigureAwait(false);
             }
             return fighter;
         }
@@ -39,11 +35,8 @@ namespace DataAccess
         {
             try
             {
-                using (FileStream fs = File.Create(FighterPathStart + id + FighterPathEnd))
-                {
-                    await JsonSerializer.SerializeAsync(fs, fighter, jso);
-                    fs.Dispose();
-                }
+                using FileStream fs = File.Create(FighterPathStart + id + FighterPathEnd);
+                await JsonSerializer.SerializeAsync(fs, fighter, jso).ConfigureAwait(false);
             }
             catch(Exception ex)
             {
